@@ -34,11 +34,7 @@ namespace DinosaursWithApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc(routes => {
-                routes.MapRoute(
-                name: "default",
-                template: "{controller=Dinos}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }
