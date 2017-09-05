@@ -25,7 +25,7 @@ namespace DinosaursWithApi.Controllers
         {
             var dino = new DinoAPIModel();
             List<DinoAPIModel> dinos = dino.DinoListGetter();
-            return dinos[id-1];
+            return dinos[id - 1];
         }
 
         // POST api/dinos
@@ -34,7 +34,8 @@ namespace DinosaursWithApi.Controllers
         {
             var dino = new DinoAPIModel();
             List<DinoAPIModel> dinos = dino.DinoListGetter();
-            var newDino = new DinoAPIModel{
+            var newDino = new DinoAPIModel
+            {
                 ID = id,
                 DinoName = name,
                 DinoSize = size,
@@ -48,13 +49,34 @@ namespace DinosaursWithApi.Controllers
         {
             var dino = new DinoAPIModel();
             List<DinoAPIModel> dinos = dino.DinoListGetter();
-            
+            if (dinos.Any(i => i.ID == id))
+            {
+                var currentDino = dinos.SingleOrDefault(w => dino.ID == id);
+                currentDino.DinoName = name;
+                currentDino.DinoSize = size;
+                currentDino.DinoHabitats = habitats;
+            } else {
+                var newDino = new DinoAPIModel
+                {
+                    ID = id,
+                    DinoName = name,
+                    DinoSize = size,
+                    DinoHabitats = habitats
+                };
+                dinos.Add(newDino);
+            }
+
         }
 
         // DELETE api/dinos/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public List<DinoAPIModel> Delete(int id)
         {
+            var dino = new DinoAPIModel();
+            List<DinoAPIModel> dinos = dino.DinoListGetter();
+            dino = dinos.SingleOrDefault(i => i.ID == id);
+            dinos.Remove(dino);
+            return dinos;
         }
     }
 }
