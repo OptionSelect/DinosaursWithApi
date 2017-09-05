@@ -19,7 +19,7 @@ namespace DinosaursWithApi.Controllers
             return dinos;
         }
 
-        // GET api/values/5
+        // GET api/dinos/5
         [HttpGet("{id}")]
         public DinoAPIModel Get(int id)
         {
@@ -28,19 +28,30 @@ namespace DinosaursWithApi.Controllers
             return dinos[id-1];
         }
 
-        // POST api/values
+        // POST api/dinos
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]int id, string name, string size, string habitats)
         {
+            var dino = new DinoAPIModel();
+            List<DinoAPIModel> dinos = dino.DinoListGetter();
+            var newDino = new DinoAPIModel{
+                ID = id,
+                DinoName = name,
+                DinoSize = size,
+                DinoHabitats = habitats
+            };
         }
 
-        // PUT api/values/5
+        // PUT api/dinos/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]string name, string size, string habitats)
         {
+            var dino = new DinoAPIModel();
+            List<DinoAPIModel> dinos = dino.DinoListGetter();
+            
         }
 
-        // DELETE api/values/5
+        // DELETE api/dinos/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
